@@ -25,8 +25,8 @@ interface NewsDao {
 
      */
     @Insert
-    fun insertAll(vararg news: News)
+    fun insertNews(vararg news: News)
 
     @Delete
-    fun delete(user: News)
+    fun delete(news: News)
 }

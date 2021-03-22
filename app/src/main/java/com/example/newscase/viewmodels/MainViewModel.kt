@@ -47,7 +47,7 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
                     // Save the News in DB
                     withContext(Dispatchers.IO) {
                         if (entry != null) {
-                            repository.addNews(entry)
+                            news.value?.let { repository.addNews(it) }
                         }
                     }
                     // Update LiveData

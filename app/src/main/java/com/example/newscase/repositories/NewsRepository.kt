@@ -31,8 +31,17 @@ class NewsRepository(context: Context) {
      */
     fun addNews(news: News) {
         val newDao = newsDB.newsDao()
-        newDao.insertAll(news)
-        Timber.i("Added news article to db!")
+        newDao.insertNews(news)
+        Timber.i("Added news articles to db!")
+    }
+
+    /**
+     * Used to delete News from persistent storage (Room DB)
+     */
+    fun deleteNews(news: News) {
+        val newDao = newsDB.newsDao()
+        newDao.delete(news)
+        Timber.i("Deleted news from to db!")
     }
 
     /**
