@@ -32,6 +32,7 @@ data class Article(
 
 ) {
     override fun toString(): String {
-        return "${title.toString()} \n Author: ${author.toString()} \n ${description.toString()} \n" + "\n"
+        return "${title.toString()} \n Author: ${author.toString()} \n ${description.toString()} " +
+                "\n ${urlToImage.toString()} \n ${publishedAt.toString()} \n" + "\n"
     }
 }

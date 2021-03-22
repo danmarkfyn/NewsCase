@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NewsCase</string>
+
+    <!-- article item fields -->
+    <string name="article_published">Published at: </string>
+
 </resources>

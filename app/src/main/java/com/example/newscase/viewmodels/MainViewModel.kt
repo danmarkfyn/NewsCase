@@ -16,7 +16,14 @@ import timber.log.Timber
 class MainViewModel(private val repository: NewsRepository) : ViewModel() {
     // Observable data
     val news: MutableLiveData<News> = MutableLiveData()
+    init {
+        viewModelScope.launch {
 
+            Timber.i("Starting Initial News Fetch")
+
+            getNews()
+        }
+    }
     /**
      * Getting news from remote sources
      */

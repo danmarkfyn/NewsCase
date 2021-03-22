@@ -1,10 +1,15 @@
 package com.example.newscase
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newscase.data.model.Article
 import com.example.newscase.repositories.NewsRepository
+import com.example.newscase.ui.adapters.ArticleAdapter
+import com.example.newscase.ui.adapters.decorators.VerticalDecorator
 import com.example.newscase.viewmodels.MainViewModel
 import timber.log.Timber
 
@@ -13,6 +18,9 @@ class MainActivity : AppCompatActivity() {
     // Meta
     private lateinit var repository: NewsRepository
     private lateinit var viewModel: MainViewModel
+
+    // Adapters
+    private lateinit var articleAdapter: ArticleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +37,38 @@ class MainActivity : AppCompatActivity() {
         val articleRecyclerView: RecyclerView = findViewById(R.id.article_recycleview)
 
         viewModel.news.observe(this, { response ->
-            val newsData = response
             //TODO Handle data here
-            if (newsData?.articles != null) {
+            if (response?.articles != null) {
+                initEventRecyclerView(this, articleRecyclerView)
+                submitNews(response.articles)
+                Timber.d("Output: ${response.toString()}")
             }
         })
     }
+
+    /**
+     * Used to set up the recycler view with articleadapter
+     */
+    private fun initEventRecyclerView(context: Context, recycler: RecyclerView) {
+        recycler.apply {
+            layoutManager =
+                LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+            if (recycler.itemDecorationCount < 1) {
+                val spacingDecorator = VerticalDecorator(20)
+                addItemDecoration(spacingDecorator)
+            }
+            articleAdapter =
+                ArticleAdapter()
+            adapter = articleAdapter
+        }
+    }
+
+    private fun submitNews(articles: List<Article>) {
+        articleAdapter.submitList(articles)
+    }
+
 }
