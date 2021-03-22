@@ -13,10 +13,10 @@ import androidx.room.Query
 interface NewsDao {
     @Query("SELECT * FROM news")
     fun getNews(): News
-    // fun getAll(): List<News>
+    //fun getAll(): List<News>
 
-    @Query("SELECT * FROM news WHERE newsID IN (:newsIds)")
-    fun loadAllByIds(newsIds: IntArray): List<News>
+    @Query("SELECT * FROM news WHERE id IN (:id)")
+    fun loadAllByIds(id: IntArray): List<News>
 
     /*
         @Query("SELECT * FROM news WHERE first_name LIKE :first AND " +
@@ -25,7 +25,7 @@ interface NewsDao {
 
      */
     @Insert
-    fun insertNews(vararg news: News)
+    fun insertAll(vararg news: News)
 
     @Delete
     fun delete(news: News)

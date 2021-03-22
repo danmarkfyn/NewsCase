@@ -47,7 +47,7 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
                     // Save the News in DB
                     withContext(Dispatchers.IO) {
                         if (entry != null) {
-                            news.value?.let { repository.addNews(it) }
+                            repository.addNews(entry)
                         }
                     }
                     // Update LiveData
@@ -70,5 +70,4 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
             Timber.i("DB data: $data")
         }
     }
-
 }

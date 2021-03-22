@@ -17,7 +17,11 @@ import com.example.newscase.R
 class ArticleActivity : AppCompatActivity() {
 
     private lateinit var articleTitle: String
+    private lateinit var articleAuthor: String
     private lateinit var articleDescription: String
+    private lateinit var articleSource: String
+    private lateinit var articleURL: String
+
     private var darkStatusBar = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,16 +31,28 @@ class ArticleActivity : AppCompatActivity() {
 
         // Get data from intent
         val bundle = intent.extras
-        articleTitle = bundle?.getString("title", "Title") ?: ""
-        articleDescription = bundle?.getString("description", "Text") ?: ""
+        articleTitle = bundle?.getString("title", "") ?: ""
+        articleAuthor = bundle?.getString("author", "") ?: ""
+        articleDescription = bundle?.getString("description", "") ?: ""
+        articleSource = bundle?.getString("source", "") ?: ""
+        articleURL = bundle?.getString("url", "") ?: ""
 
         // Get GUI elements
         val articleTitleText: AppCompatTextView = findViewById(R.id.article_window_title)
-        val articleDescriptionText: AppCompatTextView = findViewById(R.id.article_window_description)
+        val articleAuthorText: AppCompatTextView = findViewById(R.id.article_window_author)
+        val articleDescriptionText: AppCompatTextView =
+            findViewById(R.id.article_window_description)
+        val articleSourceText: AppCompatTextView = findViewById(R.id.article_window_source)
+        val articleUrlText: AppCompatTextView = findViewById(R.id.article_window_url)
 
         // Sets article data
         articleTitleText.text = articleTitle
+        articleAuthorText.text = articleAuthor
         articleDescriptionText.text = articleDescription
+        if (articleSource != null) {
+            articleSourceText.text = articleSource
+        }
+        articleUrlText.text = articleURL
 
 
         // Set the Status bar appearance for different API levels

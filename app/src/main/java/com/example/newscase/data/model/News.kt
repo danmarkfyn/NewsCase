@@ -10,8 +10,8 @@ import com.google.gson.annotations.SerializedName
  */
 @Entity
 data class News(
-    @SerializedName("newsID")
-    @PrimaryKey val newsID: Int? = null,
+    @SerializedName("id")
+    @PrimaryKey val id: Int? = null,
 
     @SerializedName("totalResults")
     @ColumnInfo(name = "total_results") val totalResults: Int? = null,

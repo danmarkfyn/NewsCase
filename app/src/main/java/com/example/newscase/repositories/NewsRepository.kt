@@ -31,7 +31,7 @@ class NewsRepository(context: Context) {
      */
     fun addNews(news: News) {
         val newDao = newsDB.newsDao()
-        newDao.insertNews(news)
+        newDao.insertAll(news)
         Timber.i("Added news articles to db!")
     }
 
