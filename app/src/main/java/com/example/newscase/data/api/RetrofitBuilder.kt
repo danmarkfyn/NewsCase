@@ -1,4 +1,4 @@
-package com.example.newscase.data.model.api
+package com.example.newscase.data.api
 
 import com.example.newscase.BuildConfig
 import okhttp3.OkHttpClient

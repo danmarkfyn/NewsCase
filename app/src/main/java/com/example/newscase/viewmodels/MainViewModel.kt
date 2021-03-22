@@ -16,14 +16,21 @@ import timber.log.Timber
 class MainViewModel(private val repository: NewsRepository) : ViewModel() {
     // Observable data
     val news: MutableLiveData<News> = MutableLiveData()
+
     init {
         viewModelScope.launch {
-
-            Timber.i("Starting Initial News Fetch")
-
-            getNews()
+            withContext(Dispatchers.IO) {
+                val data = repository.getPersistentNews()
+                if (data != null) {
+                    Timber.i("DB data: $data")
+                    news.postValue(data)
+                } else {
+                    getNews()
+                }
+            }
         }
     }
+
     /**
      * Getting news from remote sources
      */
@@ -36,13 +43,32 @@ class MainViewModel(private val repository: NewsRepository) : ViewModel() {
                 if (response.isSuccessful) {
                     val entry = response.body()
                     Timber.i("Fetch Successful")
+
+                    // Save the News in DB
+                    withContext(Dispatchers.IO) {
+                        if (entry != null) {
+                            repository.addNews(entry)
+                        }
+                    }
+                    // Update LiveData
                     news.postValue(entry)
                 } else {
-                    Timber.d("Failure when attempting to fetch news")
+                    Timber.i("Failure when attempting to fetch news")
                 }
             }
         } catch (e: Exception) {
             Timber.d("Error while attempting to fetch news: $e")
         }
     }
+
+    /**
+     * Getting news from persistent sources
+     */
+    fun getPersistentNews() = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            val data = repository.getPersistentNews()
+            Timber.i("DB data: $data")
+        }
+    }
+
 }
