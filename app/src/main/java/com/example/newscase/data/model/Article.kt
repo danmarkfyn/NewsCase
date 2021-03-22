@@ -3,6 +3,7 @@ package com.example.newscase.data.model
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class Article(
 
@@ -16,7 +17,7 @@ data class Article(
     @ColumnInfo(name = "urlToImage") val urlToImage: String? = null,
 
     @SerializedName("publishedAt")
-    @ColumnInfo(name = "publishedAt") val publishedAt: String? = null,
+    @ColumnInfo(name = "publishedAt") val publishedAt: Date? = null,
 
     @SerializedName("name")
     @ColumnInfo(name = "name") val name: String? = null,

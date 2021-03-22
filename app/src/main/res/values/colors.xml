@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-
+    <!-- article colours -->
     <color name="article_orange">#D69532</color>
+    <color name="article_red">#CD4F15</color>
+    <color name="article_yellow">#E6D855</color>
 </resources>

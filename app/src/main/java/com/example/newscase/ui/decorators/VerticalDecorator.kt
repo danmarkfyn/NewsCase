@@ -1,4 +1,4 @@
-package com.example.newscase.ui.adapters.decorators
+package com.example.newscase.ui.decorators
 
 import android.graphics.Rect
 import android.view.View
