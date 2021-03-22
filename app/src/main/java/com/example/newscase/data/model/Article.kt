@@ -12,10 +12,11 @@ data class Article(
     @SerializedName("title")
     @ColumnInfo(name = "title") val title: String? = null,
 
+    @SerializedName("urlToImage")
+    @ColumnInfo(name = "urlToImage") val urlToImage: String? = null,
 
-    @SerializedName("id")
-    @ColumnInfo(name = "id") val id: String? = null,
-
+    @SerializedName("publishedAt")
+    @ColumnInfo(name = "publishedAt") val publishedAt: String? = null,
 
     @SerializedName("name")
     @ColumnInfo(name = "name") val name: String? = null,
