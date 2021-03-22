@@ -3,13 +3,16 @@ package com.example.newscase.ui.activities
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.widget.AppCompatTextView
+import android.widget.Button
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.ColorUtils
 import com.example.newscase.R
@@ -38,12 +41,13 @@ class ArticleActivity : AppCompatActivity() {
         articleURL = bundle?.getString("url", "") ?: ""
 
         // Get GUI elements
-        val articleTitleText: AppCompatTextView = findViewById(R.id.article_window_title)
-        val articleAuthorText: AppCompatTextView = findViewById(R.id.article_window_author)
-        val articleDescriptionText: AppCompatTextView =
+        val articleTitleText: TextView = findViewById(R.id.article_window_title)
+        val articleAuthorText: TextView = findViewById(R.id.article_window_author)
+        val articleDescriptionText: TextView =
             findViewById(R.id.article_window_description)
-        val articleSourceText: AppCompatTextView = findViewById(R.id.article_window_source)
-        val articleUrlText: AppCompatTextView = findViewById(R.id.article_window_url)
+        val articleSourceText: TextView = findViewById(R.id.article_window_source)
+        val articleUrlText: TextView = findViewById(R.id.article_window_url)
+        val returnButton: Button = findViewById(R.id.return_button)
 
         // Sets article data
         articleTitleText.text = articleTitle
@@ -84,6 +88,17 @@ class ArticleActivity : AppCompatActivity() {
             activityView.setBackgroundColor(animator.animatedValue as Int)
         }
         colorAnimation.start()
+
+        returnButton.setOnClickListener {
+            finish()
+        }
+
+        // Listener for opening link to original news post
+        articleUrlText.setOnClickListener {
+            val openURI = Intent(Intent.ACTION_VIEW)
+            openURI.data = Uri.parse(articleURL)
+            startActivity(openURI)
+        }
 
     }
 

@@ -5,8 +5,12 @@
     <string name="main_update">Update</string>
     <string name="main_headline">Today\'s News</string>
 
+    <!-- article activity -->
+    <string name="article_source">Source: </string>
+
     <!-- article item fields -->
     <string name="article_published">Published at: </string>
+    <string name="return_button">Return</string>
 
 
     <!-- utils -->

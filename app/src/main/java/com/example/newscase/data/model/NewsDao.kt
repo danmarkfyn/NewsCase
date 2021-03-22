@@ -13,17 +13,10 @@ import androidx.room.Query
 interface NewsDao {
     @Query("SELECT * FROM news")
     fun getNews(): News
-    //fun getAll(): List<News>
 
     @Query("SELECT * FROM news WHERE id IN (:id)")
     fun loadAllByIds(id: IntArray): List<News>
 
-    /*
-        @Query("SELECT * FROM news WHERE first_name LIKE :first AND " +
-                "last_name LIKE :last LIMIT 1")
-        fun findByName(first: String, last: String): News
-
-     */
     @Insert
     fun insertAll(vararg news: News)
 

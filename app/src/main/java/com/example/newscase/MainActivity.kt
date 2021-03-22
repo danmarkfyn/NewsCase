@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 loadIcon.isVisible = false
                 initEventRecyclerView(this, articleRecyclerView)
                 submitNews(response.articles)
-                //Timber.d("Output: ${response.toString()}")
             }
         })
 
