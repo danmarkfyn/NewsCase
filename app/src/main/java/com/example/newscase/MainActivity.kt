@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         // Timber Logger
         Timber.plant(Timber.DebugTree())
 
@@ -45,18 +46,23 @@ class MainActivity : AppCompatActivity() {
         // Load icon for visual feedback on data fetching
         loadIcon.isVisible = true
 
+        initEventRecyclerView(this, articleRecyclerView)
+
         viewModel.news.observe(this, { response ->
             //TODO Handle data here
             if (response?.articles != null) {
                 loadIcon.isVisible = false
-                initEventRecyclerView(this, articleRecyclerView)
+                articleRecyclerView.isVisible = true
                 submitNews(response.articles)
             }
         })
 
         updateButton.setOnClickListener {
-            loadIcon.isVisible = true
-            initEventRecyclerView(this, articleRecyclerView)
+            loadIcon.isVisible = true // visual feedback that the application tries to fetch data
+
+            articleRecyclerView.isVisible = false
+            searchView.setQuery("", false); // clears the searchbar
+            searchView.clearFocus();
             viewModel.getNews()
             viewModel.getPersistentNews()
         }
@@ -85,10 +91,8 @@ class MainActivity : AppCompatActivity() {
                     LinearLayoutManager.VERTICAL,
                     false
                 )
-            if (recycler.itemDecorationCount < 1) {
-                val spacingDecorator = VerticalDecorator(28)
-                addItemDecoration(spacingDecorator)
-            }
+            val spacingDecorator = VerticalDecorator(28)
+            addItemDecoration(spacingDecorator)
             articleAdapter =
                 ArticleAdapter()
             adapter = articleAdapter

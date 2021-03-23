@@ -115,5 +115,6 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
     fun submitList(articleList: List<Article>) {
         filteredList = articleList as MutableList<Article>
         trueList = articleList
+        notifyDataSetChanged()
     }
 }

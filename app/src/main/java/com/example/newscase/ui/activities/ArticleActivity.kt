@@ -53,30 +53,9 @@ class ArticleActivity : AppCompatActivity() {
         articleTitleText.text = articleTitle
         articleAuthorText.text = articleAuthor
         articleDescriptionText.text = articleDescription
+        articleUrlText.text = articleURL
         if (articleSource != null) {
             articleSourceText.text = articleSource
-        }
-        articleUrlText.text = articleURL
-
-
-        // Set the Status bar appearance for different API levels
-        if (Build.VERSION.SDK_INT in 19..20) {
-            setWindowFlag(this, true)
-        }
-        if (Build.VERSION.SDK_INT >= 19) {
-            window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
-        if (Build.VERSION.SDK_INT >= 21) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // If you want dark status bar, set darkStatusBar to true
-                if (darkStatusBar) {
-                    this.window.decorView.systemUiVisibility =
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                }
-                this.window.statusBarColor = Color.TRANSPARENT
-                setWindowFlag(this, false)
-            }
         }
 
         val activityView: ConstraintLayout = findViewById(R.id.article_window_background)
@@ -89,6 +68,7 @@ class ArticleActivity : AppCompatActivity() {
         }
         colorAnimation.start()
 
+        // exit activity
         returnButton.setOnClickListener {
             finish()
         }
