@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
-import android.app.SearchManager;
-import androidx.appcompat.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         val updateButton: Button = findViewById(R.id.update_button)
         val articleRecyclerView: RecyclerView = findViewById(R.id.article_recycleview)
         val loadIcon: ProgressBar = findViewById(R.id.news_screen_loading)
-        val searchView: androidx.appcompat.widget.SearchView = findViewById(R.id.article_search_view)
+        val searchView: SearchView = findViewById(R.id.article_search_view)
+
         // Load icon for visual feedback on data fetching
         loadIcon.isVisible = true
 
@@ -58,11 +57,11 @@ class MainActivity : AppCompatActivity() {
         updateButton.setOnClickListener {
             loadIcon.isVisible = true
             initEventRecyclerView(this, articleRecyclerView)
-            articleAdapter.clearList()
             viewModel.getNews()
             viewModel.getPersistentNews()
         }
-        // https://www.tutorialspoint.com/how-to-use-searchview-in-android-kotlin
+
+        // filtering recyclerview items based on searchview input
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -73,7 +72,6 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
-
     }
 
     /**
@@ -88,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                     false
                 )
             if (recycler.itemDecorationCount < 1) {
-                val spacingDecorator = VerticalDecorator(20)
+                val spacingDecorator = VerticalDecorator(28)
                 addItemDecoration(spacingDecorator)
             }
             articleAdapter =
@@ -100,5 +98,4 @@ class MainActivity : AppCompatActivity() {
     private fun submitNews(articles: List<Article>) {
         articleAdapter.submitList(articles)
     }
-
 }

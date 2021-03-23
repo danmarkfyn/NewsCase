@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <include
         android:id="@+id/search_menubar"
         layout="@layout/search_bar"
@@ -28,9 +27,9 @@
         android:id="@+id/news_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="25dp"
+        android:paddingVertical="10dp"
         android:text="@string/main_headline"
-        android:textSize="32dp"
+        style="@style/title_text_style"
         app:layout_constraintBottom_toTopOf="@id/news_scrollview"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

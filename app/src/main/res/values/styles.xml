@@ -4,9 +4,17 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
     </style>
 
-
     <!-- title text -->
     <style name="title_text_style">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">#952828</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- headline text -->
+    <style name="headline_text_style">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">17sp</item>

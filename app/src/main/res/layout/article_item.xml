@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/article_img"
-        style="@style/title_text_style"
+        style="@style/headline_text_style"
         android:text="" />
 
     <TextView

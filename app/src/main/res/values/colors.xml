@@ -10,6 +10,9 @@
 
     <!-- article colours -->
     <color name="article_orange">#D69532</color>
-    <color name="article_red">#CD4F15</color>
+    <color name="article_red">#D5612B</color>
     <color name="article_yellow">#E6D855</color>
+
+    <!-- main colours -->
+    <color name="bar_orange">#EFB153</color>
 </resources>

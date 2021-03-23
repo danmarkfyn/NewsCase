@@ -22,14 +22,19 @@ import timber.log.Timber
  */
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(), Filterable {
 
-    private var articlesList: MutableList<Article> = ArrayList()
-    private var filteredList: MutableList<Article> = ArrayList()
+    private var filteredList: MutableList<Article> = ArrayList() // list of articles according to filtering (full list per default)
+    private var trueList: MutableList<Article> = ArrayList() // list of all articles unfiltered
 
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        // UI elements of item view
         private val articleTitle: TextView = view.findViewById(R.id.article_title)
         private val articlePublishedDate: TextView = view.findViewById(R.id.article_published_value)
         private val articleImage: ImageView = view.findViewById(R.id.article_img)
 
+        /**
+         * Used to bind an article's fields to a item view
+         */
         fun bind(article: Article, holder: RecyclerView.ViewHolder) {
             articleTitle.text = article.title
             articlePublishedDate.text = article.publishedAt!!.getFormattedDate()
@@ -56,30 +61,23 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                 val results = FilterResults()
                 var sortedList: MutableList<Article> = ArrayList()
 
-                when {
-                    keyword.trim().isEmpty() -> {
-                        sortedList = filteredList
-                    }
-                    keyword.isNotEmpty() -> {
-                        for (article in filteredList) {
-                            if (article.title?.toLowerCase()?.contains(keyword) == true) {
-                                sortedList.add(article)
-                            }
+                // if a keyword exist, the list will be filtered according to article description
+                if (keyword.trim().isNotEmpty()) {
+                    for (article in trueList) {
+                        if (article.title?.trim()?.toLowerCase()?.contains(keyword) == true) {
+                            sortedList.add(article)
                         }
                     }
-                    else -> {
-                        sortedList = filteredList
-                    }
+                } else {
+                    sortedList = trueList
                 }
-
                 results.values = sortedList
-
                 return results
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                articlesList = results?.values as MutableList<Article>
-                notifyDataSetChanged()
+                filteredList = results?.values as MutableList<Article>
+                notifyDataSetChanged() // update adapter
             }
         }
     }
@@ -87,7 +85,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         when (holder) {
             is ArticleViewHolder -> {
-                val article = articlesList[position]
+                val article = filteredList[position]
                 holder.bind(article, holder)
 
                 // Clicklistener for opening detailed view of selected article
@@ -110,18 +108,12 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
 
     //Numbers of articles
     override fun getItemCount(): Int {
-        return articlesList.size
+        return filteredList.size
     }
 
     //Submits list of articles
     fun submitList(articleList: List<Article>) {
-        articlesList = articleList as MutableList<Article>
         filteredList = articleList as MutableList<Article>
-    }
-
-    //clears list of articles
-    fun clearList() {
-        articlesList.clear()
-        filteredList.clear()
+        trueList = articleList
     }
 }
