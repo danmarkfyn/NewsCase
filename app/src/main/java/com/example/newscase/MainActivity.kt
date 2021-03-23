@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
+import android.app.SearchManager;
+import androidx.appcompat.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     // Adapters
     private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var articles: MutableList<Article>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val updateButton: Button = findViewById(R.id.update_button)
         val articleRecyclerView: RecyclerView = findViewById(R.id.article_recycleview)
         val loadIcon: ProgressBar = findViewById(R.id.news_screen_loading)
-
+        val searchView: androidx.appcompat.widget.SearchView = findViewById(R.id.article_search_view)
         // Load icon for visual feedback on data fetching
         loadIcon.isVisible = true
 
@@ -58,6 +62,18 @@ class MainActivity : AppCompatActivity() {
             viewModel.getNews()
             viewModel.getPersistentNews()
         }
+        // https://www.tutorialspoint.com/how-to-use-searchview-in-android-kotlin
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(keyword: String?): Boolean {
+                articleAdapter.filter.filter(keyword)
+                return false
+            }
+        })
+
     }
 
     /**

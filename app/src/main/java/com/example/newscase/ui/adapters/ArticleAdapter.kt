@@ -4,6 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -18,9 +20,10 @@ import timber.log.Timber
 /**
  * Adapter for inflating RecyclerView of article_items with data from Article objects
  */
-class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
+class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(), Filterable {
 
-    private var articles: MutableList<Article> = ArrayList()
+    private var articlesList: MutableList<Article> = ArrayList()
+    private var filteredList: MutableList<Article> = ArrayList()
 
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val articleTitle: TextView = view.findViewById(R.id.article_title)
@@ -46,19 +49,54 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
         return ArticleViewHolder(cellFromRow)
     }
 
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val keyword = constraint.toString().toLowerCase()
+                val results = FilterResults()
+                var sortedList: MutableList<Article> = ArrayList()
+
+                when {
+                    keyword.trim().isEmpty() -> {
+                        sortedList = filteredList
+                    }
+                    keyword.isNotEmpty() -> {
+                        for (article in filteredList) {
+                            if (article.title?.toLowerCase()?.contains(keyword) == true) {
+                                sortedList.add(article)
+                            }
+                        }
+                    }
+                    else -> {
+                        sortedList = filteredList
+                    }
+                }
+
+                results.values = sortedList
+
+                return results
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                articlesList = results?.values as MutableList<Article>
+                notifyDataSetChanged()
+            }
+        }
+    }
+
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         when (holder) {
             is ArticleViewHolder -> {
-                val article = articles[position]
+                val article = articlesList[position]
                 holder.bind(article, holder)
 
+                // Clicklistener for opening detailed view of selected article
                 holder.itemView.setOnClickListener {
-
                     val intent = Intent(holder.itemView.context, ArticleActivity::class.java)
                     intent.putExtra("title", article.title)
                     intent.putExtra("author", article.author)
                     intent.putExtra("description", article.description)
-                    if(article.source != null) {
+                    if (article.source != null) {
                         intent.putExtra("source", article.source!!.name)
                         Timber.d("Source: ${article.source}")
                     }
@@ -72,16 +110,18 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
 
     //Numbers of articles
     override fun getItemCount(): Int {
-        return articles.size
+        return articlesList.size
     }
 
     //Submits list of articles
     fun submitList(articleList: List<Article>) {
-        articles = articleList as MutableList<Article>
+        articlesList = articleList as MutableList<Article>
+        filteredList = articleList as MutableList<Article>
     }
 
     //clears list of articles
     fun clearList() {
-        articles.clear()
+        articlesList.clear()
+        filteredList.clear()
     }
 }
