@@ -2,15 +2,11 @@ package com.example.newscase.ui.activities
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -24,8 +20,6 @@ class ArticleActivity : AppCompatActivity() {
     private lateinit var articleDescription: String
     private lateinit var articleSource: String
     private lateinit var articleURL: String
-
-    private var darkStatusBar = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,17 +52,18 @@ class ArticleActivity : AppCompatActivity() {
             articleSourceText.text = articleSource
         }
 
+        // Transition animation
         val activityView: ConstraintLayout = findViewById(R.id.article_window_background)
         val alpha = 100 //between 0-255
         val alphaColor = ColorUtils.setAlphaComponent(Color.parseColor("#000000"), alpha)
         val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), Color.TRANSPARENT, alphaColor)
-        colorAnimation.duration = 500 // milliseconds
+        colorAnimation.duration = 800 // milliseconds
         colorAnimation.addUpdateListener { animator ->
             activityView.setBackgroundColor(animator.animatedValue as Int)
         }
         colorAnimation.start()
 
-        // exit activity
+        // Exit activity
         returnButton.setOnClickListener {
             finish()
         }
@@ -79,18 +74,5 @@ class ArticleActivity : AppCompatActivity() {
             openURI.data = Uri.parse(articleURL)
             startActivity(openURI)
         }
-
-    }
-
-    private fun setWindowFlag(activity: Activity, on: Boolean) {
-        val win = activity.window
-        val winParams = win.attributes
-        if (on) {
-            winParams.flags = winParams.flags or WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-        } else {
-            winParams.flags =
-                winParams.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS.inv()
-        }
-        win.attributes = winParams
     }
 }

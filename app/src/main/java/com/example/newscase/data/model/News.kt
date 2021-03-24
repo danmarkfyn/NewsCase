@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /**
- * Data object for News
+ * Model for News
  */
 @Entity
 data class News(

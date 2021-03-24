@@ -18,7 +18,7 @@ interface NewsDao {
     fun loadAllByIds(id: IntArray): List<News>
 
     @Insert
-    fun insertAll(vararg news: News)
+    fun insertNews(news: News)
 
     @Delete
     fun delete(news: News)

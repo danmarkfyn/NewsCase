@@ -10,6 +10,7 @@ import com.example.newscase.data.model.News
 import com.example.newscase.data.model.NewsDao
 import com.example.newscase.data.model.Source
 import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -18,6 +19,10 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * Test class for Room database (NewsDatabase)
+ * Tests are performed according to AAA unit testing
+ */
 @RunWith(AndroidJUnit4ClassRunner::class)
 class NewsDatabaseTest {
 
@@ -31,7 +36,6 @@ class NewsDatabaseTest {
         newsDao = database.newsDao()
     }
 
-
     @After
     @Throws(IOException::class)
     fun closeDb() {
@@ -40,7 +44,7 @@ class NewsDatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun writeUserAndReadInList() {
+    fun writeAndReadNewsToDatabase() {
 
         // Arrange
         val source = Source("testId", "testName")
@@ -55,10 +59,12 @@ class NewsDatabaseTest {
         val news = News(1, 9, "ok", articleList)
 
         // Act
-        newsDao.insertAll(news)
+        newsDao.insertNews(news)
+
         val value = newsDao.getNews()
 
         // Assert
+        assertThat(value, not(equalTo(null)))
         assertThat(value.id, equalTo(news.id))
     }
 
@@ -79,11 +85,13 @@ class NewsDatabaseTest {
         val news = News(1, 9, "ok", articleList)
 
         // Act
-        newsDao.insertAll(news)
+        newsDao.insertNews(news)
         newsDao.delete(news)
+
         val value = newsDao.getNews()
 
         // Assert
         assertThat(value, equalTo(null))
+        assertThat(value, not(equalTo(news)))
     }
 }

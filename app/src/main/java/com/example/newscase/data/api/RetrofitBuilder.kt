@@ -6,10 +6,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Used for Retrofit API calls
+ * Base URL is defined in BuildConfig
+ */
 object RetrofitBuilder {
-    /**
-     * Singleton RetrofitBuilder for making api calls
-     */
+
     object RetrofitBuilder {
         private val retrofitBuilder: Retrofit.Builder by lazy {
             Retrofit.Builder()
@@ -22,7 +24,7 @@ object RetrofitBuilder {
                 }.build())
         }
 
-        // object for using the NewsService
+        // object for using NewsService
         val newsService: NewsService by lazy {
             retrofitBuilder
                 .build()

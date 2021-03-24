@@ -16,9 +16,13 @@ import com.example.newscase.ui.decorators.VerticalDecorator
 import com.example.newscase.viewmodels.MainViewModel
 import timber.log.Timber
 
+/**
+ * Main Activity of the Application
+ * Used to fetch and display a list of news articles
+ */
 class MainActivity : AppCompatActivity() {
 
-    // Meta
+    // Repository and ViewModel
     private lateinit var repository: NewsRepository
     private lateinit var viewModel: MainViewModel
 
@@ -32,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         // Timber Logger
         Timber.plant(Timber.DebugTree())
 
-        // ViewModel & Repository
+        // Initialize Repository and ViewModel
         repository = NewsRepository(this)
         viewModel = MainViewModel(repository)
 
@@ -45,17 +49,19 @@ class MainActivity : AppCompatActivity() {
         // Load icon for visual feedback on data fetching
         loadIcon.isVisible = true
 
+        // Initializing RecyclerView
         initEventRecyclerView(this, articleRecyclerView)
 
+        // Observe LiveData
         viewModel.news.observe(this, { response ->
-            //TODO Handle data here
             if (response?.articles != null) {
-                loadIcon.isVisible = false
+                loadIcon.isVisible = false // Hide buffer icon
                 articleRecyclerView.isVisible = true
                 submitNews(response.articles)
             }
         })
 
+        // Update data listener
         updateButton.setOnClickListener {
             loadIcon.isVisible = true // visual feedback that the application tries to fetch data
 
@@ -80,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Used to set up the recycler view with articleadapter
+     * Used to set up the recycler view with an ArticleAdapter
      */
     private fun initEventRecyclerView(context: Context, recycler: RecyclerView) {
         recycler.apply {

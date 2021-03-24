@@ -14,6 +14,7 @@ import timber.log.Timber
  */
 class NewsRepository(context: Context) {
 
+    // Room DB
     private val newsDB: NewsDatabase by lazy {
         Room.databaseBuilder(context, NewsDatabase::class.java, "news-db").build()
     }
@@ -31,7 +32,7 @@ class NewsRepository(context: Context) {
      */
     fun addNews(news: News) {
         val newDao = newsDB.newsDao()
-        newDao.insertAll(news)
+        newDao.insertNews(news)
         Timber.i("Added news articles to db!")
     }
 

@@ -1,10 +1,10 @@
 package com.example.newscase.utils
 
 import java.util.*
-
 /**
  * Used for extensions to objects
  */
+
 
 /**
  * Get day and date from a Date object as formatted string.

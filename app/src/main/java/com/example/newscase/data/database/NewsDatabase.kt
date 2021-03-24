@@ -9,7 +9,6 @@ import com.example.newscase.data.model.NewsDao
 /**
  * Room database for News
  */
-
 @Database(entities = [News::class], version = 1)
 @TypeConverters(DatabaseConverters::class)
 abstract class NewsDatabase : RoomDatabase() {

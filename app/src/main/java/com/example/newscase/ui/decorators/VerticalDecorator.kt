@@ -16,6 +16,6 @@ class VerticalDecorator(private val padding: Int) : RecyclerView.ItemDecoration(
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.bottom = padding
+        outRect.bottom = padding // Space between items
     }
 }

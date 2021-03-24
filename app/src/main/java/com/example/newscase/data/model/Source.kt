@@ -1,9 +1,11 @@
 package com.example.newscase.data.model
 
 import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Model for news sources
+ */
 data class Source(
     @SerializedName("id")
     @ColumnInfo val id: String? = null,

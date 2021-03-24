@@ -5,6 +5,9 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
+/**
+ * Model for articles
+ */
 data class Article(
 
     @SerializedName("id")

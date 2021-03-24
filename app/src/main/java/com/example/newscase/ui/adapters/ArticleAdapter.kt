@@ -22,8 +22,8 @@ import timber.log.Timber
  */
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(), Filterable {
 
-    private var filteredList: MutableList<Article> = ArrayList() // list of articles according to filtering (full list per default)
-    private var trueList: MutableList<Article> = ArrayList() // list of all articles unfiltered
+    private var filteredList: MutableList<Article> = ArrayList() // List of articles according to filtering (full list per default)
+    private var trueList: MutableList<Article> = ArrayList() // List of all articles unfiltered
 
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -61,7 +61,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                 val results = FilterResults()
                 var sortedList: MutableList<Article> = ArrayList()
 
-                // if a keyword exist, the list will be filtered according to article description
+                // If a keyword exist, the list will be filtered according to article description
                 if (keyword.trim().isNotEmpty()) {
                     for (article in trueList) {
                         if (article.title?.trim()?.toLowerCase()?.contains(keyword) == true) {
@@ -106,12 +106,12 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
         }
     }
 
-    //Numbers of articles
+    // Numbers of articles
     override fun getItemCount(): Int {
         return filteredList.size
     }
 
-    //Submits list of articles
+    // Submits list of articles
     fun submitList(articleList: List<Article>) {
         filteredList = articleList as MutableList<Article>
         trueList = articleList
