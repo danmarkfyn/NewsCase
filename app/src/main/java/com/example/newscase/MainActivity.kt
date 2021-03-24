@@ -104,6 +104,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Used for submit data for ArticleAdapter to handle
+     */
     private fun submitNews(articles: List<Article>) {
         articleAdapter.submitList(articles)
     }
