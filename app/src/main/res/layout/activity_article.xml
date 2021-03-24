@@ -45,7 +45,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/article_window_description"
+                app:layout_constraintBottom_toTopOf="@+id/article_window_author"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -61,11 +61,22 @@
                 android:gravity="left"
                 android:text="Test text"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toTopOf="@+id/article_window_description"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/article_window_line"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/article_window_title" />
+
+            <View
+                android:id="@+id/article_window_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginHorizontal="7dp"
+                app:layout_constraintBottom_toTopOf="@+id/article_window_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/article_window_author"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/article_window_description"
@@ -82,7 +93,7 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@+id/article_window_source"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/article_window_author" />
+                app:layout_constraintTop_toBottomOf="@+id/article_window_line" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/article_window_source_text"
@@ -139,6 +150,7 @@
                 android:layout_width="180dp"
                 android:layout_height="50dp"
                 android:text="@string/return_button"
+                android:layout_marginVertical="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
