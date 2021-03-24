@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     // Adapters
     private lateinit var articleAdapter: ArticleAdapter
-    private lateinit var articles: MutableList<Article>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
