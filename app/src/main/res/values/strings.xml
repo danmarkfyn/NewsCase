@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">NewsCase</string>
+
+    <!-- main activity -->
+    <string name="main_update">Update</string>
+    <string name="main_headline">Today\'s News</string>
+
+    <!-- article activity -->
+    <string name="article_source">Source: </string>
+
+    <!-- article item fields -->
+    <string name="article_published">Published at: </string>
+    <string name="return_button">Return</string>
+
+    <!-- search bar -->
+    <string name="search_hint">Search article</string>
+
+
+    <!-- utils -->
+    <string name="utils_today">Today</string>
+
 </resources>
