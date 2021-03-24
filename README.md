@@ -1,6 +1,6 @@
 # NewsCase
 
-NewsCase is a Android Project writting in Kotlin. It builts upon MVVM principles and allwos the user to fetch and view news articles. The application support offline viewing of previously fetched articles
+NewsCase is a Android Project writting in Kotlin. It builts upon MVVM principles and allows the user to fetch and view news articles. The application support offline viewing of previously fetched articles
 
 ## Installation
 
